@@ -8,7 +8,7 @@ class TitanicSerializer(serializers.HyperlinkedModelSerializer):
         fields = "__all__"
         #fields = ('PassengerId',	'Survived'	,'Pclass',	'Name'	,'Sex',	'Age',	'SibSp',	'Parch',	'Ticket',	'Fare'	,'Cabin'	,'Embarked')
 
-# class UseSerializer(serializers.HyperlinkedModelSerializer):
+# class UserSerializer(serializers.HyperlinkedModelSerializer): #this is for the login user (if needed)
 #     class Meta:
 #         model = User
 #         fields= ('username','password')

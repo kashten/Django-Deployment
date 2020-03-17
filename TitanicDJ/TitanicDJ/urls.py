@@ -19,7 +19,7 @@ from django.conf.urls import url, include
 from django.views.generic.base import RedirectView
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('titanic/', include('titanic.urls')),
-    path('', RedirectView.as_view(url="titanic/"))
+    path('admin/', admin.site.urls), #if url has admin in address, go to admin.site.urls
+    path('titanic/', include('titanic.urls')), #if blankc/url has titanic, then go to the 'url' file in titanic folder.
+    path('', RedirectView.as_view(url="titanic/")) #if it is blank, go to titanic.
 ]

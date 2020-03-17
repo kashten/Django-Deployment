@@ -15,7 +15,7 @@ class Titanic(models.Model):
     Embarked = models.CharField(max_length =10)
 
 
-
+#the data is converteed into a dictionary, since the object needs to fed into a dataframe. Dictionary converts into the dataframe.
 
     def to_dict(self): #dictionary helps in making a dataframe.
         return {

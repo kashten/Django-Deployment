@@ -47,14 +47,14 @@ def training (df):
     df = pre_process(df)
     y=df['Survived']
     X = df.drop('Survived', axis=1)
-    dummyRow = pd.DataFrame(np.zeros(len(X.columns)).reshape(1,len(X.columns)), columns=X.columns)
+    dummyRow = pd.DataFrame(np.zeros(len(X.columns)).reshape(1,len(X.columns)), columns=X.columns) #creates this for test prediction.
     dummyRow.to_csv("dummyRow.csv", index=False)
 
     model = LogisticRegression()
     model.fit(X,y)
 
     pickle_file = "pickle_model.pkl"
-    with open (pickle_file, 'wb') as file:
+    with open (pickle_file, 'wb') as file: #wb - write/open file in binary mode.
         pickle.dump(model,file)
 
 
@@ -66,20 +66,20 @@ def training (df):
     
     
 def pred(ob):
-    d1 = ob.to_dict()
+    d1 = ob.to_dict() #convert object into dictionary and create a df.
     df = pd.DataFrame(d1, index=[0])
-    df.drop("Survived", axis=1, inplace=True)
+    df.drop("Survived", axis=1, inplace=True) #Dropping target feature before pre-processing.
     df = pre_process(df)
     dummyrow_filename = 'dummyRow.csv'
-    dummyrow_filename = os.path.dirname(__file__)+"/" + dummyrow_filename 
-    df2 = pd.read_csv(dummyrow_filename)
-    for c1 in df.columns:
+    dummyrow_filename = os.path.dirname(__file__)+"/" + dummyrow_filename  #dummyRow is used for the dummified columns (Embarked)
+    df2 = pd.read_csv(dummyrow_filename)                                       #dummyRow is all the columns during training with  1 row of 0 values.
+    for c1 in df.columns: #Add each column from df to df2.
         df2[c1]=df[c1]
-   
+   #Load the pickled model.
     pickle_filename = "pickle_model.pkl"
-    pickle_filename=os.path.dirname(__file__)+"/"+pickle_filename
+    pickle_filename=os.path.dirname(__file__)+"/"+pickle_filename #__file__ is current file (TiML2). Need to specify the os path.
     with open (pickle_filename, 'rb') as file:
-        model = pickle.load(file)
+        model = pickle.load(file) 
     pred = model.predict(df2)
     return pred
     
